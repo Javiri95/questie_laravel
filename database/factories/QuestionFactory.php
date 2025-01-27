@@ -26,7 +26,7 @@ class QuestionFactory extends Factory
             'option_a' => $this->faker->word,
             'option_b' => $this->faker->word,
             'option_c' => $this->faker->word,
-            'correct_option' => $this->faker->randomElement(['a', 'b', 'c']),
+            'correct_option' => $this->faker->randomElement(['option_a', 'option_b', 'option_c']),
             'media_url' => $this->faker->imageUrl(640, 480, 'nature', true),
         ];
     }

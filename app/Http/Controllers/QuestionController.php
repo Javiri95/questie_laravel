@@ -8,6 +8,15 @@ use Illuminate\Support\Facades\Validator;
 
 class QuestionController extends Controller
 {
+    
+    // [app/Http/Controllers/QuestionController.php]
+
+    public function getRandomQuestions()
+    {
+        $questions = Question::inRandomOrder()->limit(10)->get();
+        return response()->json($questions);
+    }
+
     public function index()
     {
         // Usa paginación para obtener las preguntas
