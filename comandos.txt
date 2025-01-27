@@ -1,0 +1,18 @@
+composer global require laravel/installler
+laravel new examen
+
+composer require laravel/breeze --dev
+php artisan breeze install
+npm install 
+npm run dev
+
+php artisan make: migration add_role_to_users_table --table=users
+php artisan make : seeder AdminUserSeeder
+php artisan db:seed --class=AdminUserSeeder
+
+php artisan make:middleware EnsureUserIsAdmin
+
+php artisan make:model Curso -m
+
+php artisan migrate
+php artisan db:seed
