@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Question;
+use Illuminate\Support\Facades\Artisan;
 
 class QuestionSeeder extends Seeder
 {
@@ -14,6 +15,8 @@ class QuestionSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Question::factory(50)->create();
+        // \App\Models\Question::factory(50)->create();
+        Artisan::call('fetch:questions');
+        
     }
 }
