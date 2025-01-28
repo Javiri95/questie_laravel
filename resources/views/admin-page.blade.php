@@ -241,9 +241,14 @@
                                                 <label for="option_c">Opción C</label>
                                                 <input type="text" class="form-control" id="option_c" name="option_c" value="{{ $question->option_c }}" required>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="correct_option">Opción Correcta</label>
-                                                <input type="text" class="form-control" id="correct_option" name="correct_option" value="{{ $question->correct_option }}" required>
+                                            <div class="mb-3">
+                                                <label for="correct_option" class="form-label">Opción Correcta</label>
+                                                <select class="form-control" id="correct_option" name="correct_option" required>
+                                                    <option value="">Seleccione una opción</option>
+                                                    <option value="option_a">Opción A</option>
+                                                    <option value="option_b">Opción B</option>
+                                                    <option value="option_c">Opción C</option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label for="media_url">Medios Asociados</label>
