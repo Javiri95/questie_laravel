@@ -19,7 +19,7 @@ class CreateQuestionsTable extends Migration
             $table->string('option_a');
             $table->string('option_b');
             $table->string('option_c');
-            $table->string('correct_option');
+            $table->string('correct_option')->nullable();
             $table->string('media_url')->nullable();
             $table->timestamps();
         });

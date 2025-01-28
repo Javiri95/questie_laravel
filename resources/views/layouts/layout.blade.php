@@ -22,7 +22,7 @@
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            height:10%;
+            height:13%;
             position: fixed;
             top: 0;
             left: 0;
