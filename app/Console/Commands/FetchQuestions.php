@@ -13,7 +13,7 @@ class FetchQuestions extends Command
 
     public function handle()
     {
-        $response = Http::get('https://opentdb.com/api.php?amount=50&type=multiple');
+        $response = Http::withOptions(['verify' => false])->get('https://opentdb.com/api.php?amount=50&type=multiple');
 
         if ($response->successful()) {
             $questions = $response->json()['results'];
