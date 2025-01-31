@@ -106,8 +106,11 @@
                         <input type="date" class="form-control" id="birth_date" name="birth_date" value="{{ $user->birth_date }}" required>
                     </div>
                     <div class="form-group">
-                        <label for="role">Rol</label>
-                        <input type="text" class="form-control" id="role" name="role" value="{{ $user->role }}" required>
+                    <label for="role">Rol</label>
+                    <select class="form-control" id="role" name="role" required>
+                        <option value="user" {{ $user->role === 'user' ? 'selected' : '' }}>User</option>
+                        <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
+                    </select>
                     </div>
                     <div class="form-group">
                         <label for="avatar">Avatar</label>
