@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('game_id')->constrained()->onDelete('cascade');
             $table->foreignId('question_id')->constrained()->onDelete('cascade');
             $table->boolean('is_correct')->nullable();
+            $table->string('selected_option')->nullable();
             $table->integer('duration');
             $table->timestamps();
         });

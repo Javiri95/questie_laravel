@@ -24,11 +24,34 @@ class UserController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $user = User::findOrFail($id);
-        $user->update($request->all());
-        return redirect()->route('admin-page')->with('success', 'Usuario actualizado correctamente');
+{
+    $user = User::findOrFail($id);
+
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'nickname' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255',
+        'birth_date' => 'required|date',
+        'role' => 'required|string|max:255',
+        'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+
+    $user->name = $request->name;
+    $user->nickname = $request->nickname;
+    $user->email = $request->email;
+    $user->birth_date = $request->birth_date;
+    $user->role = $request->role;
+
+    if ($request->hasFile('avatar')) {
+        $avatarName = time().'.'.$request->avatar->extension();
+        $request->avatar->move(public_path('avatars'), $avatarName);
+        $user->avatar = 'avatars/'.$avatarName;
     }
+
+    $user->save();
+
+    return redirect()->route('admin-page')->with('success', 'Usuario actualizado correctamente');
+}
 
     public function destroy($id)
     {

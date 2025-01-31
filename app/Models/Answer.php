@@ -11,7 +11,7 @@ class Answer extends Model
 
     // Campos asignables
     protected $fillable = [
-        'game_id', 'question_id', 'is_correct', 'duration'
+        'game_id', 'question_id', 'is_correct', 'duration','selected_option',
     ];
 
     // Relaciones
