@@ -15,6 +15,10 @@ Route::post('login', [AuthController::class, 'login']);
 Route::get('perfil', [AuthController::class, 'perfil']);   
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');  
 
+use App\Http\Controllers\Api\ApiAuthController;
+
+Route::post('api/register', [ApiAuthController::class, 'register']);
+
 
 // Agrupar rutas relacionadas con "obra"
 Route::middleware('auth:sanctum')->group(function () 

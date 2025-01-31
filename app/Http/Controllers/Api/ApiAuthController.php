@@ -1,44 +1,43 @@
 <?php
-// filepath: /c:/Users/Javier Irigoyen/Desktop/Questie/questie_laravel/app/Http/Controllers/Auth/RegisteredUserController.php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Validator;
 
-class RegisteredUserController extends Controller
+class ApiAuthController extends Controller
 {
     /**
-     * Display the registration view.
-     */
-    public function create(): View
-    {
-        return view('auth.register');
-    }
-
-    /**
-     * Handle an incoming registration request.
+     * Registra un nuevo usuario.
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function register(Request $request)
     {
         // Validar los datos del formulario
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'nickname' => 'nullable|string|max:255|unique:users', // Asegurar que el nickname sea único
-            'email' => 'required|string|email|max:255|unique:users', // Asegurar que el email sea único
+            'nickname' => 'nullable|string|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'birth_date' => 'nullable|date',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10240', // 10 MB
+        ], [
+            'nickname.unique' => 'El nickname ya está en uso.',
+            'email.unique' => 'El email ya está registrado.',
         ]);
+
+        // Si la validación falla, devolver errores
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Error de validación',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
 
         // Subir la imagen y guardar la ruta
         $avatarPath = null;
@@ -58,12 +57,10 @@ class RegisteredUserController extends Controller
             'avatar' => $avatarPath, // Guardar la ruta de la imagen
         ]);
 
-        event(new Registered($user));
-
-        // Redirigir al usuario después del registro
-        return redirect()->route('dashboard')->with('success', 'Registro exitoso');
+        // Devolver una respuesta JSON
+        return response()->json([
+            'message' => 'Registro exitoso',
+            'user' => $user,
+        ], 201);
     }
 }
-
-
-return redirect()->route('dashboard')->with('success', 'Registro exitoso');

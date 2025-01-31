@@ -1,8 +1,6 @@
 <x-guest-layout>
     <div class="w-full max-w-md bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
-       
-
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
             @csrf
 
             <!-- Name -->
@@ -59,7 +57,7 @@
             <!-- Avatar -->
             <div class="mt-4">
                 <label for="avatar" class="block font-medium text-sm text-gray-700">{{ __('Avatar') }}</label>
-                <input id="avatar" class="block mt-1 w-full" type="text" name="avatar" value="{{ old('avatar') }}" />
+                <input id="avatar" class="block mt-1 w-full" type="file" name="avatar" accept="image/*" />
                 @error('avatar')
                     <span class="text-red-500 text-sm">{{ $message }}</span>
                 @enderror
